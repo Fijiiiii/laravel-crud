@@ -14,8 +14,14 @@ class ProductController extends Controller
      */
     public function index()
     {
+        //$products is the variable to get data from the database
+        //Product is the Produt in the model
+        //show only 5 rows the paginate  to the next page
         $products = Product::latest()->paginate(5);
 
+        //return to index in blade
+        //products=$products no need for'$'
+        //tell the view which page you are on
         return view('products.index',compact('products'))
             ->with(request()->input('page'));
     }
@@ -38,13 +44,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        //validate the input
         $request->validate([
             'name' => 'required',
             'detail' => 'required',
         ]);
-
+        //create a new Product
         Product::create($request->all());
 
+        //redirect the user and send a friendly message
         return redirect()->route('products.index')
                         ->with('success','Product created successfully.');
     }

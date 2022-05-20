@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-
+    //select which properties are mass asignable
     protected $fillable = [
         'name',
         'detail'
